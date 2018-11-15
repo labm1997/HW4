@@ -1,0 +1,32 @@
+-#  This file is app/views/movies/index.html.haml
+
+- flash.each do |n,m|
+  = m
+  
+%h1 Movies with same director of #{@movie.title}
+
+- if(!@movie.director.nil?) then
+  %table#movies
+    %thead
+      %tr
+        %th Movie title
+        %th Director
+        %th Rating
+        %th Release Date
+        %th More Info
+    %tbody
+      - @movies.each do |movie|
+        %tr
+          %td= movie.title 
+          %td= movie.director
+          %td= movie.rating
+          %td= movie.release_date
+          %td= link_to "More about #{movie.title}", movie_path(movie)
+- else
+  No director information
+%br
+= link_to 'Add new movie', new_movie_path
+%br
+= link_to "Back to \"#{@movie.title}\"", movie_path(@movie)
+%br
+= link_to 'Back to movie list', movies_path
